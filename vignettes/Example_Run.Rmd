@@ -1,0 +1,65 @@
+---
+title: "Example_Run"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example_Run}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+devtools::load_all('/n/sci/SCI-004264-CAS13DBASE/gRNASelect/gRNASelect') #to load a package from a directory
+library(gRNASelect)
+```
+
+# Loading tables and filtering based on ATGC content
+```{r}
+x <- RNAFoldOutput
+
+# Plotting ATGC % before filtering
+gRNAatgcPlot(x)
+
+# Plotting RNA Fold Scores before filtering
+gRNAScorePlot(x)
+
+# Perform filtering
+y <- gRNAatgcFilter(x)
+
+# Plots after filtering
+gRNAatgcPlot(y)
+gRNAScorePlot(y)
+
+# Checking how many gRNAs per gene
+gRNAperGene(y)
+
+# Checking transcript regions
+gRNAutrperGene(y)
+```
+
+# Select gRNAs based on Scores
+```{r}
+newgRNAs <- gRNASelection(y)
+
+# Ploting after selection
+gRNAatgcPlot(newgRNAs)
+gRNAScorePlot(newgRNAs)
+gRNAutrperGene(newgRNAs)
+```
+
+# Filter mismatches
+```{r}
+z <- gRNAmismatchFilter(path = "/n/sci/SCI-004264-CAS13DBASE/gRNA_design/gd2417/output_Hassan/",
+                           data = newgRNAs)
+
+gRNA96well(z, outputpath = "/n/sci/SCI-004264-CAS13DBASE/gd2417/test/")
+```
+
