@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-devtools::load_all('/n/sci/SCI-004264-CAS13DBASE/gRNASelect/gRNASelect') #to load a package from a directory
+devtools::install_github('GabPescador/gRNASelect')
 library(gRNASelect)
 ```
 

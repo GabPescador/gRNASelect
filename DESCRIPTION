@@ -2,7 +2,10 @@ Package: gRNASelect
 Title: Selection of Cas13d gRNAs
 Version: 0.1.0
 Authors@R: 
-    person("Gabriel", "da Silva Pescador", "gd2417@stowers.org")
+    person(given = "Gabriel",
+           family = "da Silva Pescador",
+           email = "gd2417@stowers.org",
+           role = c("aut", "cre"))
 Description: Selects Cas13d gRNAs based on RNA Fold score and mismatches to the zebrafish transcriptome.
 License: MIT + file LICENSE
 Encoding: UTF-8
