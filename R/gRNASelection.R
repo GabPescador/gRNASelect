@@ -1,7 +1,8 @@
 #' Selects gRNAs based on their RNA Fold scores
 #'
 #' This function uses RNA Fold scores to select top, bottom and random
-#' gRNAs.
+#' gRNAs. type2 column specifies criteria of choice to be either 'TOP' and 'BOT' scores,
+#' 'RANDOM' if randomly selected and 'Less than 10' if less than 10 gRNAs exist for that gene
 #'
 #' @param df Dataframe containing RNA Fold scores
 #' @param minN Cut-off for minimum number of gRNAs every transcript should have. Default is 10

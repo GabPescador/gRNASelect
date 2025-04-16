@@ -7,9 +7,9 @@
 gRNAmismatchFilter(path, data, extension = "csv")
 }
 \arguments{
-\item{path}{Path to a folder containing all files from Hassan's blast}
+\item{path}{Path to a folder containing all files from gRNADesign module mismatch}
 
-\item{data}{Dataframe of gRNAs selected to go to Hassan's blast}
+\item{data}{Dataframe of gRNAs selected to go to gRNADesign module mismatch}
 
 \item{extension}{Extension of files in path. Default is csv}
 }
@@ -17,7 +17,7 @@ gRNAmismatchFilter(path, data, extension = "csv")
 Generates a dataframe with filtered gRNAs
 }
 \description{
-This function loads the output dataframe from Hassan's blast.
+This function loads the output dataframes from gRNADesign module mismatch.
 It will filter gRNAs and keep only the ones that have 4 or more
 mismatches to any other zebrafish transcript.
 }

@@ -4,10 +4,14 @@
 \alias{gRNAutrperGene}
 \title{Plot number of gRNAs in different transcript regions}
 \usage{
-gRNAutrperGene(df)
+gRNAutrperGene(df, minLim = 0, maxLim = 100)
 }
 \arguments{
 \item{df}{Dataframe output from RNA Fold predictions}
+
+\item{minLim}{Minimum limit of x axis for histogram, default is 0}
+
+\item{maxLim}{Maximum limit of x axis for histogram, default is 100}
 }
 \value{
 Creates a ggplot
@@ -16,4 +20,8 @@ Creates a ggplot
 This function makes a histogram of gRNAs hits per transcript region.
 Since this is a ggplot2 object, you can modify the plot by
 adding + and ggplot2 code.
+}
+\details{
+It requires a column in your dataframe that specifies location of gRNA as
+either 'CDS', 'UTR' or 'CDS+UTR'.
 }

@@ -1,11 +1,11 @@
 #' Filter gRNAs based on mismatches to other transcripts
 #'
-#' This function loads the output dataframe from Hassan's blast.
+#' This function loads the output dataframes from gRNADesign module mismatch.
 #' It will filter gRNAs and keep only the ones that have 4 or more
 #' mismatches to any other zebrafish transcript.
 #'
-#' @param path Path to a folder containing all files from Hassan's blast
-#' @param data Dataframe of gRNAs selected to go to Hassan's blast
+#' @param path Path to a folder containing all files from gRNADesign module mismatch
+#' @param data Dataframe of gRNAs selected to go to gRNADesign module mismatch
 #' @param extension Extension of files in path. Default is csv
 #' @return Generates a dataframe with filtered gRNAs
 #' @export
@@ -58,7 +58,7 @@ gRNAmismatchFilter <- function(path, data, extension = "csv"){
   df_counts2 <- df_counts %>%
     filter(!gRNA_name %in% df_counts1$gRNA_name)
   
-  # Checking which gRNAs have more than 1 gene with 0 mismatches
+  # Checking which gRNAs have more than 1 geneID with 0 mismatches
   df_counts3 <- filter(df_counts2, mismatches == 0 & count > 1)
   
   # Filter this from the first table to check if it is different transcripts from same gene
