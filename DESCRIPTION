@@ -16,6 +16,7 @@ Imports:
        reshape2,
        stringr,
        tidyverse,
+       tidytable,
        ggplot2,
        ggforce,
        ggrepel,

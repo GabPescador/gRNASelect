@@ -21,57 +21,57 @@ gRNAmismatchFilter <- function(path, data, extension = "csv"){
   df <- list.files(path = path,
                    pattern = pattern,
                    full.names = TRUE) %>%
-    map_df(~{
-      data <- fread(.x)
+    tidytable::map_df(~{
+      data <- data.table::fread(.x)
       data$FileName <- basename(.x)  # Add the file name as a new column
       return(data)
     })
   
   # transforming to same name as input table
-  df$gRNA_name <- paste0(str_split_fixed(df$FileName, "_", n=Inf)[,4],
+  df$gRNA_name <- paste0(stringr::str_split_fixed(df$FileName, "_", n=Inf)[,4],
                          "_",
-                         str_split_fixed(df$FileName, "_", n=Inf)[,5],
+                         stringr::str_split_fixed(df$FileName, "_", n=Inf)[,5],
                          "_",
-                         str_split_fixed(df$FileName, "_", n=Inf)[,6],
+                         stringr::str_split_fixed(df$FileName, "_", n=Inf)[,6],
                          "_",
-                         str_split_fixed(df$FileName, "_", n=Inf)[,7]) %>%
-    str_sub(end=-5) # takes out the .csv from the filenames
+                         stringr::str_split_fixed(df$FileName, "_", n=Inf)[,7]) %>%
+    stringr::str_sub(end=-5) # takes out the .csv from the filenames
   
   # Takes out the unique gene ID
-  df$Gene_ID <- str_split_fixed(df$`Gene/transcript`, "\\|", n=Inf)[,2]
+  df$Gene_ID <- stringr::str_split_fixed(df$`Gene/transcript`, "\\|", n=Inf)[,2]
   
   print("Checking for mismatches...")
   
   # Now we can check if each gRNA has only > 5 mismatches
   df_counts <- df %>%
-    group_by(gRNA_name, mismatches) %>%
-    summarise(count = length(mismatches))
+    dplyr::group_by(gRNA_name, mismatches) %>%
+    dplyr::summarise(count = length(mismatches))
   
-  df_counts$Transcript_ID <- str_split_fixed(df_counts$gRNA_name, "_", n=Inf)[,1]
-  df_counts$Gene_ID <- str_split_fixed(df_counts$gRNA_name, "_", n=Inf)[,2]
+  df_counts$Transcript_ID <- stringr::str_split_fixed(df_counts$gRNA_name, "_", n=Inf)[,1]
+  df_counts$Gene_ID <- stringr::str_split_fixed(df_counts$gRNA_name, "_", n=Inf)[,2]
   
   # filter gRNAs that have 1, 2 or 3 mismatches
   df_counts1 <- df_counts %>%
-    filter(mismatches %in% c(1,2,3))
+    dplyr::filter(mismatches %in% c(1,2,3))
   
   # keeping only gRNAs that have 0, 4 or 5 mismatches
   df_counts2 <- df_counts %>%
-    filter(!gRNA_name %in% df_counts1$gRNA_name)
+    dplyr::filter(!gRNA_name %in% df_counts1$gRNA_name)
   
   # Checking which gRNAs have more than 1 geneID with 0 mismatches
-  df_counts3 <- filter(df_counts2, mismatches == 0 & count > 1)
+  df_counts3 <- dplyr::filter(df_counts2, mismatches == 0 & count > 1)
   
   # Filter this from the first table to check if it is different transcripts from same gene
-  df_counts4 <- filter(df, gRNA_name %in% df_counts3$gRNA_name & mismatches == 0)
+  df_counts4 <- dplyr::filter(df, gRNA_name %in% df_counts3$gRNA_name & mismatches == 0)
   
   # Get the gRNA names that are from 0 mismatches with different gene ids
   df_counts5 <- df_counts4 %>%
-    filter(!str_detect(df_counts4$gRNA_name, df_counts4$Gene_ID))
+    dplyr::filter(!str_detect(df_counts4$gRNA_name, df_counts4$Gene_ID))
   
   df_counts6 <- df_counts2 %>%
-    filter(!gRNA_name %in% df_counts5$gRNA_name)
+    dplyr::filter(!gRNA_name %in% df_counts5$gRNA_name)
   
-  df_final <- filter(data, gRNA_name %in% df_counts6$gRNA_name)
+  df_final <- dplyr::filter(data, gRNA_name %in% df_counts6$gRNA_name)
   
   print("Done!")
   

@@ -15,38 +15,38 @@ gRNASelection <- function(df, minN = 10, randomN = 8){
   # randomN sets how many random gRNAs we are picking after taking the Top and Bottom scores per gene
   
   z <- df %>%
-    group_by(`Gene|Longest_transcript`) %>%
+    dplyr::group_by(`Gene|Longest_transcript`) %>%
     count()
   
   # First gets all gRNAs with less than a certain number available
-  lessThan10 <- filter(z, n <= minN)
-  lessThan10_seq <- filter(df, `Gene|Longest_transcript` %in% lessThan10$`Gene|Longest_transcript`)
+  lessThan10 <- dplyr::filter(z, n <= minN)
+  lessThan10_seq <- dplyr::filter(df, `Gene|Longest_transcript` %in% lessThan10$`Gene|Longest_transcript`)
   lessThan10_seq$type2 <- "Less than 10"
   
-  df <- filter(df, !`Gene|Longest_transcript` %in% lessThan10$`Gene|Longest_transcript`)
+  df <- dplyr::filter(df, !`Gene|Longest_transcript` %in% lessThan10$`Gene|Longest_transcript`)
   
   # Max scores of each gene
   topScores <- df %>%
-    group_by(`Gene|Longest_transcript`, type) %>% # for each unique sample
-    arrange(-Average_score) %>%
-    slice_head()
+    dplyr::group_by(`Gene|Longest_transcript`, type) %>% # for each unique sample
+    dplyr::arrange(-Average_score) %>%
+    dplyr::slice_head()
   topScores$type2 <- "TOP"
   
   # Bottom scores of each gene
   botScores <- df %>%
-    group_by(`Gene|Longest_transcript`, type) %>% # for each unique sample
-    arrange(-Average_score) %>%
-    slice_tail()
+    dplyr::group_by(`Gene|Longest_transcript`, type) %>% # for each unique sample
+    dplyr::arrange(-Average_score) %>%
+    dplyr::slice_tail()
   botScores$type2 <- "BOT"
   
   # Filter out the ones we already picked
-  dfFilter <- filter(df, !seq_23nt %in% topScores$seq_23nt)
-  dfFilter <- filter(df, !seq_23nt %in% botScores$seq_23nt)
+  dfFilter <- dplyr::filter(df, !seq_23nt %in% topScores$seq_23nt)
+  dfFilter <- dplyr::filter(df, !seq_23nt %in% botScores$seq_23nt)
   
   # Now we can select 8 more at random from our sequences
   randomScores <- dfFilter %>%
-    group_by(`Gene|Longest_transcript`, type) %>% # for each unique sample
-    slice_sample(n = randomN)
+    dplyr::group_by(`Gene|Longest_transcript`, type) %>% # for each unique sample
+    dplyr::slice_sample(n = randomN)
   randomScores$type2 <- "RANDOM"
   
   # Now we can put all together

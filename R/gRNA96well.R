@@ -18,9 +18,9 @@ gRNA96well <- function(df, outputpath, wells = 93, nmax = 3){
   # nmax = number of gRNAs per gene
   
   randomScores <- df %>%
-    group_by(`Gene|Longest_transcript`) %>%
-    slice_sample(n = nmax) %>%
-    mutate(IDT_Sequence = paste0(seq_23nt, "GTTTCAAACCCCGACCAGTT"))
+    dplyr::group_by(`Gene|Longest_transcript`) %>%
+    dplyr::slice_sample(n = nmax) %>%
+    dplyr::mutate(IDT_Sequence = paste0(seq_23nt, "GTTTCAAACCCCGACCAGTT"))
   
   groups <- rep(1:ceiling(nrow(randomScores) / wells), each = wells)[1:nrow(randomScores)]
   
@@ -51,7 +51,7 @@ gRNA96well <- function(df, outputpath, wells = 93, nmax = 3){
       Name = df_list[[i]]$gRNA_name,
       Sequence = df_list[[i]]$IDT_Sequence)
   
-    write.xlsx(output_df, paste0(outputpath, format(Sys.time(), "%Y%m%d_%H-%M"), "_IDT_plate_", i, ".xlsx"))
+    openxlsx::write.xlsx(output_df, paste0(outputpath, format(Sys.time(), "%Y%m%d_%H-%M"), "_IDT_plate_", i, ".xlsx"))
     
   }
   

@@ -14,10 +14,10 @@
 gRNAatgcFilter <- function(df, Arange=15:35, Trange=15:35, Crange=15:35, Grange=15:35){
   # any range values should work here, defaults to 15:35 as we were using it
   temp <- df %>%
-    filter(between(A_Percentage, min(Arange), max(Arange)) &
-             between(T_Percentage, min(Trange), max(Trange)) &
-             between(C_Percentage, min(Crange), max(Crange)) &
-             between(G_Percentage, min(Grange), max(Grange)))
+    dplyr::filter(dplyr::between(A_Percentage, min(Arange), max(Arange)) &
+                  dplyr::between(T_Percentage, min(Trange), max(Trange)) &
+                  dplyr::between(C_Percentage, min(Crange), max(Crange)) &
+                  dplyr::between(G_Percentage, min(Grange), max(Grange)))
   
   temp$type <- ifelse(str_detect(temp$CDS_UTR, "(?=.*CDS)(?=.*UTR)") == TRUE,
                    "CDS+UTR",
@@ -32,14 +32,14 @@ gRNAatgcFilter <- function(df, Arange=15:35, Trange=15:35, Crange=15:35, Grange=
 # how many gRNAs per gene? creates an histogram
 gRNAperGene <- function(df, binwidth=5){
   z <- df %>%
-    group_by(`Gene|Longest_transcript`) %>%
+    dplyr::group_by(`Gene|Longest_transcript`) %>%
     count()
   
   z %>%
-    ggplot(aes(x=n)) +
-    geom_histogram(binwidth = binwidth, color="white", fill="black", linewidth=0.2) +
-    scale_y_continuous(n.breaks = 10) +
-    scale_x_continuous(n.breaks = 10) +
-    theme_classic() +
-    xlab("# gRNAs per gene")
+    ggplot2::ggplot(aes(x=n)) +
+    ggplot2::geom_histogram(binwidth = binwidth, color="white", fill="black", linewidth=0.2) +
+    ggplot2::scale_y_continuous(n.breaks = 10) +
+    ggplot2::scale_x_continuous(n.breaks = 10) +
+    ggplot2::theme_classic() +
+    ggplot2::xlab("# gRNAs per gene")
 }

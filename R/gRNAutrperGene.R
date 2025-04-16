@@ -23,13 +23,13 @@ gRNAutrperGene <- function(df, minLim = 0, maxLim = 100) {
                           "UTR"))
   
   v_count <- v %>%
-    group_by(`Gene|Longest_transcript`, type) %>%
+    dplyr::group_by(`Gene|Longest_transcript`, type) %>%
     count()
   
   v_count %>%
-    ggplot(aes(x=n, fill=type)) +
-    geom_histogram(color="black", binwidth = 1) +
-    scale_fill_manual(values=c("black", "#44AA99", "#AA4499")) +
-    coord_cartesian(xlim=c(minLim,maxLim))+
-    theme_classic()
+    ggplot2::ggplot(aes(x=n, fill=type)) +
+    ggplot2::geom_histogram(color="black", binwidth = 1) +
+    ggplot2::scale_fill_manual(values=c("black", "#44AA99", "#AA4499")) +
+    ggplot2::coord_cartesian(xlim=c(minLim,maxLim))+
+    ggplot2::theme_classic()
 }

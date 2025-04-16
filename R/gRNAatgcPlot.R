@@ -13,10 +13,10 @@ gRNAatgcPlot <- function(df){
   df_melt <- reshape2::melt(df, measure.vars = c("Average_score", "G_Percentage", "C_Percentage", "A_Percentage", "T_Percentage"))
   
   df_melt %>%
-    filter(!variable == "Average_score") %>%
-    ggplot(aes(x=variable, y=value)) +
-    geom_boxplot() +
-    annotate(geom="text",
+    dplyr::filter(!variable == "Average_score") %>%
+    ggplot2::ggplot(aes(x=variable, y=value)) +
+    ggplot2::geom_boxplot() +
+    ggplot2::annotate(geom="text",
              y=max(filter(df_melt, !variable == "Average_score")[,"value"]),
              x=c(1,2,3,4),
              hjust=0.5,
@@ -24,13 +24,13 @@ gRNAatgcPlot <- function(df){
                      paste0("mean = ", round(mean(filter(df_melt, variable == "C_Percentage")[,"value"]),2)),
                      paste0("mean = ", round(mean(filter(df_melt, variable == "A_Percentage")[,"value"]),2)),
                      paste0("mean = ", round(mean(filter(df_melt, variable == "T_Percentage")[,"value"]),2)))) +
-    annotate(geom="text",
+    ggplot2::annotate(geom="text",
              y=min(filter(df_melt, !variable == "Average_score")[,"value"]),
              x=0.5,
              hjust=0,
              label=paste0("n = ",nrow(df))) +
-    theme_classic() +
-    xlab("") +
-    ylab("Percentage (%)") +
-    ggtitle("ATGC")
+    ggplot2::theme_classic() +
+    ggplot2::xlab("") +
+    ggplot2::ylab("Percentage (%)") +
+    ggplot2::ggtitle("ATGC")
 }

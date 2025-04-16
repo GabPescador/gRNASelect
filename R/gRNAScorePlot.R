@@ -13,22 +13,22 @@ gRNAScorePlot <- function(df) {
   df_melt <- reshape2::melt(df, measure.vars = c("Average_score", "G_Percentage", "C_Percentage", "A_Percentage", "T_Percentage"))
   
   df_melt %>%
-    filter(variable == "Average_score") %>%
-    ggplot(aes(x=variable, y=value)) +
-    geom_sina() +
-    geom_boxplot() +
-    annotate(geom="text",
+    dplyr::filter(variable == "Average_score") %>%
+    ggplot2::ggplot(aes(x=variable, y=value)) +
+    ggforce::geom_sina() +
+    ggplot2::geom_boxplot() +
+    ggplot2::annotate(geom="text",
              y=max(filter(df_melt, variable == "Average_score")[,"value"]),
              x=0.5,
              hjust=0,
              label=paste0("mean = ", round(mean(filter(df_melt, variable == "Average_score")[,"value"]),4))) +
-    annotate(geom="text",
+    ggplot2::annotate(geom="text",
              y=max(filter(df_melt, variable == "Average_score")[,"value"]),
              x=1.5,
              hjust=1,
              label=paste0("n = ",nrow(df))) +
-    theme_classic() +
-    xlab("") +
-    ylab("RNA Fold Score") +
-    ggtitle("Score")
+    ggplot2::theme_classic() +
+    ggplot2::xlab("") +
+    ggplot2::ylab("RNA Fold Score") +
+    ggplot2::ggtitle("Score")
 }
