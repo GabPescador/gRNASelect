@@ -14,10 +14,10 @@
 gRNAatgcFilter <- function(df, Arange=15:35, Trange=15:35, Crange=15:35, Grange=15:35){
   # any range values should work here, defaults to 15:35 as we were using it
   temp <- df %>%
-    dplyr::filter(dplyr::between(A_Percentage, min(Arange), max(Arange)) &
-                  dplyr::between(T_Percentage, min(Trange), max(Trange)) &
-                  dplyr::between(C_Percentage, min(Crange), max(Crange)) &
-                  dplyr::between(G_Percentage, min(Grange), max(Grange)))
+    dplyr::filter(between(A_Percentage, min(Arange), max(Arange)) &
+                  between(T_Percentage, min(Trange), max(Trange)) &
+                  between(C_Percentage, min(Crange), max(Crange)) &
+                  between(G_Percentage, min(Grange), max(Grange)))
   
   temp$type <- ifelse(str_detect(temp$CDS_UTR, "(?=.*CDS)(?=.*UTR)") == TRUE,
                    "CDS+UTR",
