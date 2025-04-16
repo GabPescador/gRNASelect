@@ -14,21 +14,21 @@ gRNAScorePlot <- function(df) {
   
   df_melt %>%
     dplyr::filter(variable == "Average_score") %>%
-    ggplot2::ggplot(aes(x=variable, y=value)) +
-    ggforce::geom_sina() +
-    ggplot2::geom_boxplot() +
-    ggplot2::annotate(geom="text",
+    ggplot(aes(x=variable, y=value)) +
+    geom_sina() +
+    geom_boxplot() +
+    annotate(geom="text",
              y=max(filter(df_melt, variable == "Average_score")[,"value"]),
              x=0.5,
              hjust=0,
              label=paste0("mean = ", round(mean(filter(df_melt, variable == "Average_score")[,"value"]),4))) +
-    ggplot2::annotate(geom="text",
+    annotate(geom="text",
              y=max(filter(df_melt, variable == "Average_score")[,"value"]),
              x=1.5,
              hjust=1,
              label=paste0("n = ",nrow(df))) +
-    ggplot2::theme_classic() +
-    ggplot2::xlab("") +
-    ggplot2::ylab("RNA Fold Score") +
-    ggplot2::ggtitle("Score")
+    theme_classic() +
+    xlab("") +
+    ylab("RNA Fold Score") +
+    ggtitle("Score")
 }
