@@ -12,6 +12,7 @@
 #' @importFrom readr write_csv
 #' @importFrom data.table between
 #' @import ggplot2
+#' @import cowplot
 #' @importFrom reshape2 melt
 #' @importFrom stringr str_detect
 #' @importFrom stringr str_split_fixed

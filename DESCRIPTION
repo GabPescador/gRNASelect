@@ -15,12 +15,12 @@ Imports:
        dplyr (>= 1.1.4),
        reshape2,
        stringr,
-       tidyverse,
        tidytable,
        ggplot2,
        magrittr,
+       readr,
+       cowplot,
        ggforce,
-       ggrepel,
        data.table,
        openxlsx
 Depends: 

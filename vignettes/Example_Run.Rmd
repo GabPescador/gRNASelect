@@ -81,7 +81,7 @@ z <- gRNAmismatchFilter(path = system.file("extdata",
 
 # Splits all selected gRNAs into 96 well plates for IDT ordering
 ```{r}
-# Splits all selected gRNAs into tables for IDT ordering in 96-well format
+# Splits all selected gRNAs into excel tables for IDT ordering in 96-well format
 # Defaults to 3 gRNAs per gene, but can be changed with nmax
 gRNA96well(z, outputpath = "./")
 ```

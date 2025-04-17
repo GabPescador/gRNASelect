@@ -8,6 +8,8 @@ gRNAperGene(df, binwidth = 5)
 }
 \arguments{
 \item{df}{Dataframe output from RNA Fold predictions}
+
+\item{binwidth}{Specifies binwidth from geom_histogram}
 }
 \value{
 Creates a ggplot

@@ -5,6 +5,7 @@
 #' adding + and ggplot2 code.
 #'
 #' @param df Dataframe output from RNA Fold predictions
+#' @param binwidth Specifies binwidth from geom_histogram
 #' @return Creates a ggplot
 #' @export
 gRNAperGene <- function(df, binwidth=5){
