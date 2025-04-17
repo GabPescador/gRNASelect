@@ -17,15 +17,15 @@ gRNAatgcPlot <- function(df){
     ggplot(aes(x=variable, y=value)) +
     geom_boxplot() +
     annotate(geom="text",
-             y=max(filter(df_melt, !variable == "Average_score")[,"value"]),
+             y=max(dplyr::filter(df_melt, !variable == "Average_score")[,"value"]),
              x=c(1,2,3,4),
              hjust=0.5,
-             label=c(paste0("mean = ", round(mean(filter(df_melt, variable == "G_Percentage")[,"value"]),2)),
-                     paste0("mean = ", round(mean(filter(df_melt, variable == "C_Percentage")[,"value"]),2)),
-                     paste0("mean = ", round(mean(filter(df_melt, variable == "A_Percentage")[,"value"]),2)),
-                     paste0("mean = ", round(mean(filter(df_melt, variable == "T_Percentage")[,"value"]),2)))) +
+             label=c(paste0("mean = ", round(mean(dplyr::filter(df_melt, variable == "G_Percentage")[,"value"]),2)),
+                     paste0("mean = ", round(mean(dplyr::filter(df_melt, variable == "C_Percentage")[,"value"]),2)),
+                     paste0("mean = ", round(mean(dplyr::filter(df_melt, variable == "A_Percentage")[,"value"]),2)),
+                     paste0("mean = ", round(mean(dplyr::filter(df_melt, variable == "T_Percentage")[,"value"]),2)))) +
     annotate(geom="text",
-             y=min(filter(df_melt, !variable == "Average_score")[,"value"]),
+             y=min(dplyr::filter(df_melt, !variable == "Average_score")[,"value"]),
              x=0.5,
              hjust=0,
              label=paste0("n = ",nrow(df))) +

@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-Sys.setenv("GITHUB_PAT" = "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")
-devtools::install_github('GabPescador/gRNASelect',
-                         auth_token = Sys.getenv("GITHUB_PAT"))
+# Sys.setenv("GITHUB_PAT" = "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")
+# devtools::install_github('GabPescador/gRNASelect',
+#                          auth_token = Sys.getenv("GITHUB_PAT"))
 library(gRNASelect)
 # It is not loading the packages that it depends on, will have to check how to fix this
 ```
@@ -28,30 +28,6 @@ library(gRNASelect)
 ```{r}
 # Input file comes from the design module: https://github.com/hzuzu/gRNADesign
 x <- RNAFoldOutput
-
-df_melt <- reshape2::melt(x, measure.vars = c("Average_score", "G_Percentage", "C_Percentage", "A_Percentage", "T_Percentage"))
-  
-  df_melt %>%
-    filter(!variable == "Average_score") %>%
-    ggplot(aes(x=variable, y=value)) +
-    geom_boxplot() +
-    annotate(geom="text",
-             y=max(filter(df_melt, !variable == "Average_score")[,"value"]),
-             x=c(1,2,3,4),
-             hjust=0.5,
-             label=c(paste0("mean = ", round(mean(filter(df_melt, variable == "G_Percentage")[,"value"]),2)),
-                     paste0("mean = ", round(mean(filter(df_melt, variable == "C_Percentage")[,"value"]),2)),
-                     paste0("mean = ", round(mean(filter(df_melt, variable == "A_Percentage")[,"value"]),2)),
-                     paste0("mean = ", round(mean(filter(df_melt, variable == "T_Percentage")[,"value"]),2)))) +
-    annotate(geom="text",
-             y=min(filter(df_melt, !variable == "Average_score")[,"value"]),
-             x=0.5,
-             hjust=0,
-             label=paste0("n = ",nrow(df))) +
-    theme_classic() +
-    xlab("") +
-    ylab("Percentage (%)") +
-    ggtitle("ATGC")
 
 # Plotting ATGC % before filtering
 gRNAatgcPlot(x)
@@ -102,7 +78,10 @@ z <- gRNAmismatchFilter(path = system.file("data/output_mismatches",
                                            "",
                                            package = "gRNASelect"),
                         data = newgRNAs)
+```
 
+# Splits all selected gRNAs into 96 well plates for IDT ordering
+```{r}
 # Splits all selected gRNAs into tables for IDT ordering in 96-well format
 # Defaults to 3 gRNAs per gene, but can be changed with nmax
 gRNA96well(z, outputpath = "./")
