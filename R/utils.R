@@ -7,6 +7,7 @@
 #' @import tidyverse
 #' @import tidytable
 #' @import openxlsx
+#' @import magrittr
 #' @importFrom ggforce geom_sina
 #' @importFrom utils head tail
 NULL
