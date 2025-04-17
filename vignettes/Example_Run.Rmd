@@ -21,7 +21,6 @@ knitr::opts_chunk$set(
 # devtools::install_github('GabPescador/gRNASelect',
 #                          auth_token = Sys.getenv("GITHUB_PAT"))
 library(gRNASelect)
-# It is not loading the packages that it depends on, will have to check how to fix this
 ```
 
 # Loading tables and filtering based on ATGC content
