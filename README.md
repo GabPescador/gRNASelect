@@ -91,11 +91,11 @@ gRNAScorePlot(newgRNAs)
 gRNAutrperGene(newgRNAs)
 ```
 
-<img src="man/figures/README-viz-1.png" width="100%" />
-<img src="man/figures/README-viz-2.png" width="100%" />
-<img src="man/figures/README-viz-3.png" width="100%" />
+<img src="man/figures/README-viz-1.png" width="75%" />
+<img src="man/figures/README-viz-2.png" width="75%" />
+<img src="man/figures/README-viz-3.png" width="75%" />
 
-To see a more detailed version of what can be done with the package see the example Rmarkdown vignette:
+To see a more detailed version of what can be done with the package see the example Rmarkdown vignette in
 ```
-browseVignettes("Example_Run")
+vignettes/Example_Run.Rmd
 ```
