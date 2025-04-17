@@ -13,7 +13,7 @@ gRNAScorePlot <- function(df) {
   df_melt <- reshape2::melt(df, measure.vars = c("Average_score", "G_Percentage", "C_Percentage", "A_Percentage", "T_Percentage"))
   
   df_melt %>%
-    dplyr::filter(variable == "Average_score") %>%
+    filter(variable == "Average_score") %>%
     ggplot(aes(x=variable, y=value)) +
     geom_sina() +
     geom_boxplot() +
