@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 # Sys.setenv("GITHUB_PAT" = "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")
 # devtools::install_github('GabPescador/gRNASelect',
-#                          auth_token = Sys.getenv("GITHUB_PAT"))
+#                           auth_token = Sys.getenv("GITHUB_PAT"))
 library(gRNASelect)
 ```
 
@@ -73,9 +73,9 @@ gRNAutrperGene(newgRNAs)
 # Input file comes from the mismatch module: https://github.com/hzuzu/gRNADesign
 # Requires a folder with all mismatches per gRNA and keeps only gRNAs with
 # >4 mismatches to any transcript
-z <- gRNAmismatchFilter(path = system.file("data/output_mismatches",
-                                           "",
-                                           package = "gRNASelect"),
+z <- gRNAmismatchFilter(path = system.file("extdata",
+                                            "",
+                                            package = "gRNASelect"),
                         data = newgRNAs)
 ```
 
