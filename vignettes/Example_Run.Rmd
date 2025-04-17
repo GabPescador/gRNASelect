@@ -17,9 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-# Sys.setenv("GITHUB_PAT" = "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")
-# devtools::install_github('GabPescador/gRNASelect',
-#                           auth_token = Sys.getenv("GITHUB_PAT"))
+# devtools::install_github('GabPescador/gRNASelect')
 library(gRNASelect)
 ```
 
@@ -66,6 +64,8 @@ gRNAatgcPlot(newgRNAs)
 gRNAScorePlot(newgRNAs)
 gRNAutrperGene(newgRNAs)
 # note that if all gene have enough gRNAs, the histogram should only have data in n = 10 for the default settings
+
+# The new dataframe serve as input for the mismatch module: https://github.com/hzuzu/gRNADesign
 ```
 
 # Filter mismatches
