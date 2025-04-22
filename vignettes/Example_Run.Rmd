@@ -1,0 +1,88 @@
+---
+title: "Example_Run"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example_Run}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+# devtools::install_github('GabPescador/gRNASelect')
+library(gRNASelect)
+```
+
+# Loading tables and filtering based on ATGC content
+```{r}
+# Input file comes from the design module: https://github.com/hzuzu/gRNADesign
+x <- RNAFoldOutput
+
+# Plotting ATGC % before filtering
+gRNAatgcPlot(x)
+
+# Plotting RNA Fold Scores before filtering
+gRNAScorePlot(x)
+
+# Perform filtering based on ATGC%
+# Defaults are 15:35% range, but can be modified to any range of numbers
+y <- gRNAatgcFilter(x)
+
+# Plots after filtering
+gRNAatgcPlot(y)
+gRNAScorePlot(y)
+
+# all plots together
+cowplot::plot_grid(plotlist = list(gRNAatgcPlot(x), gRNAatgcPlot(y),
+                                   gRNAScorePlot(x), gRNAScorePlot(y)))
+
+# Checking how many gRNAs per gene
+gRNAperGene(y)
+
+# Checking transcript regions
+gRNAutrperGene(y)
+```
+
+# Select gRNAs based on Scores
+```{r}
+# gRNASelection can define how many gRNAs you select based on RNAFold scores
+# It always selects the top and the bottom scores + a random selection of gRNAs
+# per transcript
+# type2 column specifies criteria for choice of gRNA
+newgRNAs <- gRNASelection(y, minN = 10, randomN = 8)
+
+# Ploting after selection
+gRNAatgcPlot(newgRNAs)
+gRNAScorePlot(newgRNAs)
+gRNAutrperGene(newgRNAs)
+# note that if all gene have enough gRNAs, the histogram should only have data in n = 10 for the default settings
+
+# The new dataframe serve as input for the mismatch module: https://github.com/hzuzu/gRNADesign
+```
+
+# Filter mismatches
+```{r}
+# Input file comes from the mismatch module: https://github.com/hzuzu/gRNADesign
+# Requires a folder with all mismatches per gRNA and keeps only gRNAs with
+# >4 mismatches to any transcript
+z <- gRNAmismatchFilter(path = system.file("extdata",
+                                            "",
+                                            package = "gRNASelect"),
+                        data = newgRNAs)
+```
+
+# Splits all selected gRNAs into 96 well plates for IDT ordering
+```{r}
+# Splits all selected gRNAs into excel tables for IDT ordering in 96-well format
+# Defaults to 3 gRNAs per gene, but can be changed with nmax
+gRNA96well(z, outputpath = "./")
+```
+

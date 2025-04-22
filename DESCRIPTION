@@ -1,0 +1,32 @@
+Package: gRNASelect
+Title: Selection of Cas13d gRNAs
+Version: 0.1.0
+Authors@R: 
+    person(given = "Gabriel",
+           family = "da Silva Pescador",
+           email = "gd2417@stowers.org",
+           role = c("aut", "cre"))
+Description: Selects Cas13d gRNAs based on RNA Fold score and mismatches to the zebrafish transcriptome.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+       dplyr (>= 1.1.4),
+       reshape2,
+       stringr,
+       tidytable,
+       ggplot2,
+       magrittr,
+       readr,
+       cowplot,
+       ggforce,
+       data.table,
+       openxlsx
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
